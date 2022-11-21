@@ -17,12 +17,16 @@ public class BookController {
     //-> return list of books
     @GetMapping
     public ResponseEntity<List<BookDto>> getBooks() {
-        BookDto book = BookDto.builder()
+        BookDto firstBook = BookDto.builder()
                 .title("First Book Title")
                 .build(); // -> use constructor and return object
+        BookDto secondBook = BookDto.builder()
+                .title("Second Book Title")
+                .build();
 
         List<BookDto> books = new ArrayList<>();
-        books.add(book);
+        books.add(firstBook);
+        books.add(secondBook);
         return ResponseEntity.ok(books);
     }
 }
