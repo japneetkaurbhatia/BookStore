@@ -1,0 +1,8 @@
+fileignoreconfig:
+- filename: src/main/resources/data-h2.sql
+  checksum: 21ebfc579080bcd0d24f5f5e20737503f68e7cb0c066f7ff0fd4d2f7b4a24ba6
+- filename: src/main/resources/db.migration/V1__BOOK_SCHEMA.sql
+  checksum: 971c1e1b9a47990caa7e12f9db77b9f5a62ad361a1396709748ce9df563584d3
+- filename: src/test/resources/InsertInitialBookRecordForTest.sql
+  checksum: 29d9ccee0345ed7f3ad9fc6d2b974d8e5e1be4f79a4685b96d4e19c3f7e0c7fc
+version: ""

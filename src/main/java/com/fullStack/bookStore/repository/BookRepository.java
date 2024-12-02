@@ -9,4 +9,6 @@ import java.util.UUID;
 // MODEL, ENTITY
 public interface BookRepository extends CrudRepository<Book, UUID> {
 
+    List<Book> findBooksByTitle(String test_title);
+    List<Book> findBooksByTitleIgnoreCase(String title);
 }

@@ -1,32 +1,48 @@
 package com.fullStack.bookStore.controller;
 
 import com.fullStack.bookStore.dto.BookDto;
+import com.fullStack.bookStore.model.Book;
+import com.fullStack.bookStore.service.BookService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController //-> register controller as rest controller to spring container
+@Api(value = "Book Api", tags = "Book Api", produces = "application/json")
+@RestController
 @RequestMapping("api/v1/books")
 public class BookController {
 
-    //-> return list of books
+    @Autowired
+    private BookService bookService;
+
+    @ApiOperation(value = "get list of books", response = BookDto[].class, produces = "application/json")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list of book"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "not found resource")
+    })
     @GetMapping
     public ResponseEntity<List<BookDto>> getBooks() {
-        BookDto firstBook = BookDto.builder()
-                .title("First Book Title")
-                .build(); // -> use constructor and return object
-        BookDto secondBook = BookDto.builder()
-                .title("Second Book Title")
-                .build();
-
-        List<BookDto> books = new ArrayList<>();
-        books.add(firstBook);
-        books.add(secondBook);
+        List<BookDto> books = bookService.getBooks();
         return ResponseEntity.ok(books);
     }
+
+    @GetMapping("/{title}")
+    public ResponseEntity<List<BookDto>> getBooksByTitle(@PathVariable("title") String title) {
+        List<BookDto> booksByTitle = bookService.getBooksByTitle(title);
+        return ResponseEntity.ok(booksByTitle);
+    }
+
+
 }
